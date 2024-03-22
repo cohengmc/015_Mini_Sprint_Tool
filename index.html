@@ -13,22 +13,24 @@
           src="https://cdn-icons-png.flaticon.com/256/9394/9394519.png"
           alt="guy programming on laptop"
         />
-        <button class="add-btn">Add Item</button>
+        <button id="add-item-btn" class="add-btn">Add Item</button>
       </div>
       <div id="new-item">
-        <input class="item-title" type="text" placeholder="Practice Item" />
+        <input
+          id="add-item-title"
+          class="item-title"
+          type="text"
+          placeholder="Practice Item"
+        />
         <textarea
+          id="add-item-desc"
           class="item-description"
           type="text"
           placeholder="Description"
         ></textarea>
       </div>
     </div>
-    <div id="practice-items">
-      <div class="practice-item">
-        <h3>This is a test item</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit hic consequatur, voluptatibus vel consectetur sit voluptatem, minima nesciunt quae, laudantium temporibus! Error quae ratione ex quia necessitatibus praesentium sapiente blanditiis.</p>
-      </div>
-    </div>
+    <div id="practice-items"></div>
+    <script src="script.js" type="module"></script>
   </body>
 </html>
