@@ -1,27 +1,18 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push, onValue, remove , update} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
-
 const addItemBtnEl = document.querySelector("#add-item-btn");
 const addItemTitleEl = document.querySelector("#add-item-title");
 const addItemDescEl = document.querySelector("#add-item-desc");
 const practiceItemsEl = document.querySelector("#practice-items")
 
-const appSettings = {
-    databaseURL: "https://playground-b42aa-default-rtdb.firebaseio.com/"
-}
-
-const app = initializeApp(appSettings)
-const database = getDatabase(app)
-const practiceItemsInDB = ref(database, "miniSprint/practiceItems")
+let practiceItems = {}
 
 addItemBtnEl.addEventListener('click', function () {
 
     const itemTitle = addItemTitleEl.value;
     const itemDesc = addItemDescEl.value;
 
-    update(practiceItemsInDB, {
-        [itemTitle]: itemDesc
-    })
+    practiceItems[itemTitle] = itemDesc;
+
+    render();
 
     clearInput(addItemTitleEl);
     clearInput(addItemDescEl);
@@ -53,23 +44,20 @@ function addPracticeItem(key, value) {
     newPracticeItemEl.appendChild(newDesc);
 }
 
-onValue(practiceItemsInDB, function(snapshot){
-    if(snapshot.exists()){
-        let itemArray = Object.entries(snapshot.val());
+function render() {
 
-        practiceItemsEl.innerHTML = "";
+    practiceItemsEl.innerHTML = "";
 
-        itemArray.forEach(element => {
+    if (Object.keys(practiceItems) != 0) {
+        for (const [key, value] of Object.entries(practiceItems)){
 
-            let currentItemId = element[0];
-            let currentItemDesc = element[1];
+            let currentItemId = key;
+            let currentItemDesc = value;
 
             addPracticeItem(currentItemId, currentItemDesc)
-            
-        });
 
-
+        }
     } else {
         practiceItemsEl.innerHTML = "No items here... yet";
     }
-})
+}
